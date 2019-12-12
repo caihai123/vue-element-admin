@@ -13,7 +13,6 @@
         text-color="rgb(191, 203, 217)"
         unique-opened
         :collapse="!isDiminutive&&isCollapse"
-        router
       >
         <side-bar v-for="route in routes" :key="route.path" :item="route"></side-bar>
       </el-menu>
@@ -35,7 +34,7 @@
               >{{item.meta.title}}</el-breadcrumb-item>
             </el-breadcrumb>
           </div>
-          <div style="display: flex;">
+          <div style="display: flex;margin-right:20px;">
             <div class="hamburger">
               <i class="el-icon-search"></i>
             </div>
@@ -45,19 +44,24 @@
             <div class="hamburger">
               <i class="el-icon-message-solid"></i>
             </div>
-            <el-dropdown trigger="click" @command="handleCommand">
-              <div class="hamburger" style="padding:4px 8px;margin-right:20px;cursor: pointer;">
-                <el-avatar
-                  shape="square"
-                  :size="40"
-                  src="https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif?imageView2/1/w/80/h/80"
-                ></el-avatar>
-                <i class="el-icon-caret-bottom" style="font-size: 14px"></i>
+            <el-dropdown trigger="click" class="hamburger">
+              <div style="margin-top:5px">
+                <el-avatar shape="square" :size="40" :src="require('../assets/portrait.gif')"></el-avatar>
+                <i style="font-size:14px;" class="el-icon-caret-bottom" />
               </div>
               <el-dropdown-menu slot="dropdown">
-                <el-dropdown-item icon="el-icon-s-home" command="/">首页</el-dropdown-item>
-                <el-dropdown-item icon="el-icon-s-custom" command="/menu3/menu3-2/menu3-2-1">个人中心</el-dropdown-item>
-                <el-dropdown-item divided icon="el-icon-back" command="/login">退出登陆</el-dropdown-item>
+                <router-link to="/">
+                  <el-dropdown-item>首页</el-dropdown-item>
+                </router-link>
+                <router-link to="/">
+                  <el-dropdown-item>个人中心</el-dropdown-item>
+                </router-link>
+                <router-link to="/">
+                  <el-dropdown-item>修改密码</el-dropdown-item>
+                </router-link>
+                <router-link to="/login">
+                  <el-dropdown-item divided>登出</el-dropdown-item>
+                </router-link>
               </el-dropdown-menu>
             </el-dropdown>
           </div>
@@ -105,7 +109,10 @@ export default {
   },
   watch: {
     $route() {
-      this.getBreadcrumb();
+      // this.getBreadcrumb();
+      if (this.isDiminutive == true) {
+        this.isCollapse = true;
+      }
     }
   },
   created() {
@@ -124,14 +131,6 @@ export default {
           item.path !== "/" &&
           item.path !== "/index"
       );
-    },
-    handleCommand(path) {
-      this.$router.push({
-        path,
-        query: {
-          t: +new Date() //保证每次点击路由的query项都是不一样的，确保会重新刷新view
-        }
-      });
     },
     //窗口大小改变时执行
     onResize() {
