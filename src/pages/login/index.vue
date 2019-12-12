@@ -29,13 +29,16 @@
 </template>
 
 <script>
+import axios from "../../utils/axios";
+import { buildParams } from "../../utils/common-util";
+import md5 from "md5";
 export default {
   name: "login.vue",
   data: function() {
     return {
       loginForm: {
-        userName: "蔡海",
-        userPassword: "123"
+        userName: "",
+        userPassword: ""
       }
     };
   },
@@ -43,11 +46,20 @@ export default {
   methods: {
     //点击登陆执行的函数
     login: function() {
-      if (this.loginForm.userName && this.loginForm.userPassword) {
-        this.$router.push("/");
-      } else {
-        this.$message.error("请先输入用户名和密码");
-      }
+      var self = this;
+      axios
+        .post(
+          "/api/user/login.json",
+          buildParams({
+            loginName: self.loginForm.userName,
+            password: md5(self.loginForm.userPassword)
+          })
+        )
+        .then(function(val) {
+          if (val.data.code === 200) {
+            self.$router.push("/");
+          }
+        });
     }
   }
 };
@@ -79,10 +91,15 @@ export default {
   border: none;
   background: transparent;
   color: #fff;
+  caret-color: #fff;
 }
 .login-container .el-input {
   border: 1px solid hsla(0, 0%, 100%, 0.1);
   border-radius: 5px;
   background: rgba(0, 0, 0, 0.1);
+}
+.login-container input:-webkit-autofill {
+  box-shadow: 0 0 0px 1000px #283443 inset !important;
+  -webkit-text-fill-color: #fff !important;
 }
 </style>

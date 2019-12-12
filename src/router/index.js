@@ -14,7 +14,7 @@ export default new VueRouter({
                 {
                     path: "/index",
                     component: () => import('../pages/index'),
-                    meta: { title: "首页", icon: "el-icon-s-home" },
+                    meta: { title: "首页 按钮", icon: "el-icon-s-home" },
                 }
             ]
         }, {
@@ -25,7 +25,7 @@ export default new VueRouter({
                 {
                     path: "/menu1/index",
                     component: () => import('../pages/menu1'),
-                    meta: { title: "一级菜单1", icon: "el-icon-s-marketing" },
+                    meta: { title: "一级菜单 表格", icon: "el-icon-s-marketing" },
                 }
             ],
         }, {
@@ -36,7 +36,7 @@ export default new VueRouter({
                 {
                     path: "/menu2/index",
                     component: () => import('../pages/menu2'),
-                    meta: { title: "一级菜单2", icon: "el-icon-s-data" }
+                    meta: { title: "一级菜单 输入框", icon: "el-icon-s-data" }
                 }]
         }, {
             path: "/menu3",
@@ -47,7 +47,7 @@ export default new VueRouter({
                 {
                     path: "/menu3/menu3-1",
                     component: () => import('../pages/menu3/menu3-1'),
-                    meta: { title: "二级菜单3-1", icon: "el-icon-s-cooperation" },
+                    meta: { title: "二级菜单 表单", icon: "el-icon-s-cooperation" },
                 },
                 {
                     path: "/menu3/menu3-2",
