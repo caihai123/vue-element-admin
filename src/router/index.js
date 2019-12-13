@@ -83,7 +83,7 @@ export default new VueRouter({
             path: "/login",
             component: () => import('../pages/login'),
             hidden: true,
-            meta: { title: "登录页" }
+            meta: { title: "登录页" }          
         }
     ]
 })

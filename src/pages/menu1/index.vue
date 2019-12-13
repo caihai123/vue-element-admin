@@ -1,7 +1,7 @@
 <template>
   <div>
     <h2>一级菜单1 表格</h2>
-    <el-table :data="tableData" stripe border style="width: 100%">
+    <el-table :data="tableData" v-loading="tableLoading" stripe border style="width: 100%">
       <el-table-column prop="date" label="日期"></el-table-column>
       <el-table-column prop="position" label="位置"></el-table-column>
       <el-table-column prop="doorName" label="设备名称"></el-table-column>
@@ -18,7 +18,8 @@ import { buildParams } from "../../utils/common-util";
 export default {
   data() {
     return {
-      tableData: []
+      tableData: [],
+      tableLoading:false
     };
   },
   mounted() {
@@ -27,6 +28,7 @@ export default {
   methods: {
     getTableData: function() {
       var self = this;
+      self.tableLoading = true;
       axios
         .post(
           "/api/equipOnline/selectEquipOnlineListWithPage.json",
@@ -41,6 +43,7 @@ export default {
           if (val.data.data) {
             self.tableData = val.data.data.rows;
           }
+          self.tableLoading = false;
         });
     }
   }

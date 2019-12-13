@@ -13,3 +13,14 @@ new Vue({
   render: h => h(App),
   router
 }).$mount('#app')
+
+router.beforeEach((to, from, next) => {
+  // if(to.path === from.path){
+  //   next(false)
+  // }
+  /* 路由发生变化修改页面title */
+  if (to.meta.title) {
+    document.title = to.meta.title
+  }
+  next()
+})

@@ -1,35 +1,39 @@
 <template>
   <div class="login-container">
-    <el-form ref="form" :model="loginForm" class="login">
+    <el-form ref="loginForm" :model="loginForm" class="login">
       <div>
         <h3 class="title">系统登陆</h3>
       </div>
-      <el-form-item>
+      <el-form-item prop="userName" :rules="[
+      { required: true, message: '请输入用户名'}
+    ]">
         <el-input
           v-model="loginForm.userName"
           clearable
           prefix-icon="el-icon-user"
-          placeholder="请输入用户名"
+          placeholder="用户名"
         ></el-input>
       </el-form-item>
-      <el-form-item>
+      <el-form-item prop="userPassword" :rules="[
+      { required: true, message: '请输入密码'}
+    ]">
         <el-input
           v-model="loginForm.userPassword"
           show-password
           clearable
           prefix-icon="el-icon-unlock"
-          placeholder="请输入密码"
+          placeholder="密码"
         ></el-input>
       </el-form-item>
       <el-form-item>
-        <el-button type="primary" @click="login" style="width: 100%">登 陆</el-button>
+        <el-button type="primary" :loading="loading" @click="submitLogin" style="width: 100%">登 陆</el-button>
       </el-form-item>
     </el-form>
   </div>
 </template>
 
 <script>
-import axios from "../../utils/axios";
+import axios from "axios";
 import { buildParams } from "../../utils/common-util";
 import md5 from "md5";
 export default {
@@ -39,27 +43,45 @@ export default {
       loginForm: {
         userName: "",
         userPassword: ""
-      }
+      },
+      loading: false
     };
   },
   mounted: function() {},
   methods: {
     //点击登陆执行的函数
-    login: function() {
+    submitLogin: function() {
       var self = this;
-      axios
-        .post(
-          "/api/user/login.json",
-          buildParams({
-            loginName: self.loginForm.userName,
-            password: md5(self.loginForm.userPassword)
-          })
-        )
-        .then(function(val) {
-          if (val.data.code === 200) {
-            self.$router.push("/");
-          }
-        });
+      this.$refs["loginForm"].validate(valid => {
+        if (valid) {
+          self.loading = true;
+          axios
+            .post(
+              "/api/user/login1.json",
+              buildParams({
+                loginName: self.loginForm.userName,
+                password: md5(self.loginForm.userPassword)
+              })
+            )
+            .then(function(val) {
+              self.loading = false;
+              if (val.data.code === 200) {
+                self.$router.push("/");
+              } else {
+                self.$notify.error({
+                  title: "错误",
+                  message: val.data.message
+                });
+              }
+            })
+            .catch(function(error) {
+              self.$notify.error({
+                title: "错误",
+                message: error.Error
+              });
+            });
+        }
+      });
     }
   }
 };

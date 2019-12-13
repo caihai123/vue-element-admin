@@ -2,13 +2,23 @@ import axios from "axios"
 import Vue from 'vue'
 import router from "../router"
 
+var vueObj = new Vue();
+
+function errorNotify(msg) {
+    vueObj.$notify.error({
+        title: '错误',
+        message: msg
+    });
+}
+
 axios.defaults.timeout = 60000;
 axios.defaults.headers['X-Requested-With'] = 'XMLHttpRequest';
+
 axios.interceptors.response.use(function (response) {
     // 对响应数据做点什么
     if (response.data.code && response.data.code != 200) {
-        //回到首页
-        router.push("/login");
+        //回到登录页
+        router.push({ path: '/login' });
     }
     return response;
 }, function (error) {
@@ -56,12 +66,5 @@ axios.interceptors.response.use(function (response) {
     }
     return Promise.reject(error);
 });
-
-function errorNotify(msg) {
-    new Vue().$notify.error({
-        title: '错误',
-        message: msg
-      });
-}
 
 export default axios
