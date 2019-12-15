@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h2>二级菜单3-1 表单</h2>
+    <el-alert>二级菜单3-1 表单</el-alert>
 
     <el-form
       :model="ruleForm"
@@ -123,7 +123,7 @@ export default {
         if (valid) {
           alert("submit!");
         } else {
-         window.console.log('error submit!!');
+          window.console.log("error submit!!");
           return false;
         }
       });

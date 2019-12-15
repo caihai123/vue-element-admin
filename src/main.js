@@ -9,11 +9,6 @@ Vue.use(Fragment.Plugin)
 Vue.use(ElementUI);
 Vue.config.productionTip = false
 
-new Vue({
-  render: h => h(App),
-  router
-}).$mount('#app')
-
 router.beforeEach((to, from, next) => {
   // if(to.path === from.path){
   //   next(false)
@@ -24,3 +19,8 @@ router.beforeEach((to, from, next) => {
   }
   next()
 })
+
+new Vue({
+  render: h => h(App),
+  router
+}).$mount('#app')

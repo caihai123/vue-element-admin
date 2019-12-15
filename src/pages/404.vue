@@ -1,7 +1,5 @@
 <template>
-  <el-alert>
-    <router-view></router-view>
-  </el-alert>
+  <el-alert>404</el-alert>
 </template>
 
 <script>

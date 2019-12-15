@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h2>一级菜单2</h2>
+    <el-alert>一级菜单2</el-alert>
     <div>
       <el-input class="input" v-model="input" placeholder="请输入内容"></el-input>
       <el-input class="input" placeholder="请输入内容" v-model="input" :disabled="true"></el-input>
@@ -26,7 +26,11 @@
           ></el-option>
         </el-option-group>
       </el-select>
-      <el-time-select v-model="value" :picker-options="{start: '08:30',step: '00:15',end: '18:30'}" placeholder="选择时间"></el-time-select>
+      <el-time-select
+        v-model="value"
+        :picker-options="{start: '08:30',step: '00:15',end: '18:30'}"
+        placeholder="选择时间"
+      ></el-time-select>
     </div>
   </div>
 </template>

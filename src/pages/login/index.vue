@@ -34,7 +34,7 @@
 
 <script>
 import axios from "axios";
-import { buildParams } from "../../utils/common-util";
+import { buildParams } from "../../utils/util";
 import md5 from "md5";
 export default {
   name: "login.vue",
@@ -57,7 +57,7 @@ export default {
           self.loading = true;
           axios
             .post(
-              "/api/user/login1.json",
+              "/api/user/login.json",
               buildParams({
                 loginName: self.loginForm.userName,
                 password: md5(self.loginForm.userPassword)

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h2>一级菜单1 表格</h2>
+    <el-alert>一级菜单1 表格</el-alert>
     <el-table :data="tableData" v-loading="tableLoading" stripe border style="width: 100%">
       <el-table-column prop="date" label="日期"></el-table-column>
       <el-table-column prop="position" label="位置"></el-table-column>
@@ -13,13 +13,13 @@
 
 <script>
 import axios from "../../utils/axios";
-import { buildParams } from "../../utils/common-util";
+import { buildParams } from "../../utils/util";
 
 export default {
   data() {
     return {
       tableData: [],
-      tableLoading:false
+      tableLoading: false
     };
   },
   mounted() {

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h2>首页 按钮</h2>
+    <el-alert>首页 按钮</el-alert>
     <div>
       <el-row>
         <el-button>默认按钮</el-button>

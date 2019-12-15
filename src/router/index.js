@@ -18,6 +18,11 @@ export default new VueRouter({
                 }
             ]
         }, {
+            path: '/404',
+            component: () => import('../pages/404'),
+            hidden: true,
+        },
+        {
             path: "/menu1",
             component: Layout,
             redirect: '/menu1/index',
@@ -83,7 +88,7 @@ export default new VueRouter({
             path: "/login",
             component: () => import('../pages/login'),
             hidden: true,
-            meta: { title: "登录页" }          
-        }
+            meta: { title: "登录页" }
+        }, { path: '*', redirect: '/404', hidden: true }
     ]
 })
