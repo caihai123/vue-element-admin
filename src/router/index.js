@@ -7,6 +7,17 @@ Vue.use(VueRouter)
 export default new VueRouter({
     routes: [
         {
+            path: '/redirect',
+            component: Layout,
+            hidden: true,
+            children: [
+                {
+                    path: '/redirect/:path*',
+                    component: () => import('../pages/redirect/index'),
+                }
+            ]
+        },
+        {
             path: "/",
             component: Layout,
             redirect: '/index',
@@ -68,7 +79,7 @@ export default new VueRouter({
                         {
                             path: "/menu3/menu3-2/menu3-2-2",
                             component: () => import('../pages/menu3/menu3-2/menu3-2-2'),
-                            meta: { title: "三级菜单3-2-1", icon: "el-icon-s-marketing" },
+                            meta: { title: "三级菜单3-2-2", icon: "el-icon-s-marketing" },
                         }
                     ]
                 }

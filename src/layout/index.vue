@@ -9,7 +9,7 @@
       <el-main>
         <div class="app-main">
           <transition name="fade-transform" mode="out-in">
-            <router-view />
+            <router-view :key="key" />
           </transition>
         </div>
       </el-main>
@@ -38,6 +38,11 @@ export default {
     //这个逻辑有点奇怪，Navbar组件初始化的时候会使此组件执行menuSwitch函数
     menuSwitch(isCollapse) {
       this.isCollapse = isCollapse;
+    }
+  },
+  computed: {
+    key() {
+      return this.$route.path;
     }
   }
 };

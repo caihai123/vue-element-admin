@@ -1,5 +1,9 @@
 <template>
-  <div>三级菜单3-2-2</div>
+  <div style="padding:30px;">
+    <el-alert :closable="false" title="menu3-2-2" type="success">
+      <router-view />
+    </el-alert>
+  </div>
 </template>
 
 <script>

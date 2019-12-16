@@ -8,21 +8,21 @@
       <side-bar v-for="route in item.children" :key="route.path" :item="route"></side-bar>
     </el-submenu>
 
-    <router-link
+    <div
       class="router-link"
       v-else-if="item.children&&item.children.length==1"
-      :to="item.children[0].path"
+      @click="router(item.redirect||item.path)"
     >
       <el-menu-item :index="item.children[0].path">
         <Item :icon="item.children[0].meta.icon" :title="item.children[0].meta.title"></Item>
       </el-menu-item>
-    </router-link>
+    </div>
 
-    <router-link class="router-link" v-else :to="item.path">
+    <div class="router-link" v-else @click="router(item.redirect||item.path)">
       <el-menu-item :index="item.path">
         <Item :icon="item.meta.icon" :title="item.meta.title"></Item>
       </el-menu-item>
-    </router-link>
+    </div>
   </fragment>
 </template>
 
@@ -37,7 +37,18 @@ export default {
     }
   },
   name: "side-bar",
-  methods: {}
+  methods: {
+    router: function(to) {
+      const { fullPath } = this.$route;
+      if (fullPath === to) {
+        this.$router.replace({
+          path: "/redirect" + fullPath
+        });
+      } else {
+        this.$router.push(to);
+      }
+    }
+  }
 };
 </script>
 <style scoped>
