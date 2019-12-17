@@ -34,6 +34,7 @@
 
 <script>
 import axios from "axios";
+import NProgress from "nprogress";
 import { buildParams } from "../../utils/util";
 import md5 from "md5";
 export default {
@@ -55,6 +56,7 @@ export default {
       this.$refs["loginForm"].validate(valid => {
         if (valid) {
           self.loading = true;
+          NProgress.start();
           axios
             .post(
               "/api/user/login.json",
@@ -65,6 +67,7 @@ export default {
             )
             .then(function(val) {
               self.loading = false;
+              NProgress.done();
               if (val.data.code === 200) {
                 self.$router.push("/");
               } else {
