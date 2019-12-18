@@ -35,7 +35,6 @@ export default {
     };
   },
   methods: {
-    //这个逻辑有点奇怪，Navbar组件初始化的时候会使此组件执行menuSwitch函数
     menuSwitch(isCollapse) {
       this.isCollapse = isCollapse;
     }

@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import Layout from '../layout'
+import Layout from '@/layout'
 
 /*相同webpackChunkName的会被打包成一个文件*/
 const redirect = () => import(/* webpackChunkName: "index" */'@/pages/redirect/index')

@@ -21,7 +21,7 @@
 
 <script>
 import sideBar from "./sideBar";
-var _ = require("lodash");
+var { debounce } = require("lodash");
 export default {
   components: {
     sideBar
@@ -43,7 +43,7 @@ export default {
     var self = this;
     self.routes = this.$router.options.routes;
     self.onResize();
-    window.addEventListener("resize", _.debounce(self.onResize, 100), false);
+    window.addEventListener("resize", debounce(self.onResize, 100), false);
   },
   methods: {
     //窗口大小改变时执行

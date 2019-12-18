@@ -11,7 +11,7 @@ export default {
 </script>
 
 <style>
-@import "./styles/transition.css";
+@import "~@/styles/transition.css";
 
 html {
   height: 100%;
