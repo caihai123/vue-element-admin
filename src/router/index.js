@@ -2,6 +2,19 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Layout from '../layout'
 
+/*相同webpackChunkName的会被打包成一个文件*/
+const redirect = () => import(/* webpackChunkName: "index" */'@/pages/redirect/index')
+const index = () => import(/* webpackChunkName: "index" */'@/pages/index')
+const error404 = () => import(/* webpackChunkName: "404" */'@/pages/404')
+const menu1 = () => import(/* webpackChunkName: "menu1" */'@/pages/menu1')
+const menu2 = () => import(/* webpackChunkName: "menu2" */'@/pages/menu2')
+const menu3_1 = () => import(/* webpackChunkName: "menu3" */'@/pages/menu3/menu3-1')
+const menu3_2 = () => import(/* webpackChunkName: "menu3" */'@/pages/menu3/menu3-2/')
+const menu3_2_1 = () => import(/* webpackChunkName: "menu3" */'@/pages/menu3/menu3-2/menu3-2-1')
+const menu3_2_2 = () => import(/* webpackChunkName: "menu3" */'@/pages/menu3/menu3-2/menu3-2-2')
+const menu4 = () => import(/* webpackChunkName: "menu4" */'@/pages/menu4')
+const login = () => import(/* webpackChunkName: "login" */'@/pages/login')
+
 Vue.use(VueRouter)
 
 export default new VueRouter({
@@ -13,7 +26,7 @@ export default new VueRouter({
             children: [
                 {
                     path: '/redirect/:path*',
-                    component: () => import('../pages/redirect/index'),
+                    component: redirect,
                 }
             ]
         },
@@ -24,13 +37,13 @@ export default new VueRouter({
             children: [
                 {
                     path: "/index",
-                    component: () => import('../pages/index'),
+                    component: index,
                     meta: { title: "首页 按钮", icon: "el-icon-s-home" },
                 }
             ]
         }, {
             path: '/404',
-            component: () => import('../pages/404'),
+            component: error404,
             hidden: true,
         },
         {
@@ -40,7 +53,7 @@ export default new VueRouter({
             children: [
                 {
                     path: "/menu1/index",
-                    component: () => import('../pages/menu1'),
+                    component: menu1,
                     meta: { title: "一级菜单 表格", icon: "el-icon-s-marketing" },
                 }
             ],
@@ -51,7 +64,7 @@ export default new VueRouter({
             children: [
                 {
                     path: "/menu2/index",
-                    component: () => import('../pages/menu2'),
+                    component: menu2,
                     meta: { title: "一级菜单 输入框", icon: "el-icon-s-data" }
                 }]
         }, {
@@ -62,23 +75,23 @@ export default new VueRouter({
             children: [
                 {
                     path: "/menu3/menu3-1",
-                    component: () => import('../pages/menu3/menu3-1'),
+                    component: menu3_1,
                     meta: { title: "二级菜单 表单", icon: "el-icon-s-cooperation" },
                 },
                 {
                     path: "/menu3/menu3-2",
-                    component: () => import('../pages/menu3/menu3-2/'),
+                    component: menu3_2,
                     redirect: "/menu3/menu3-2/menu3-2-1",
                     meta: { title: "二级菜单3-2", icon: "el-icon-s-platform" },
                     children: [
                         {
                             path: "/menu3/menu3-2/menu3-2-1",
-                            component: () => import('../pages/menu3/menu3-2/menu3-2-1'),
+                            component: menu3_2_1,
                             meta: { title: "三级菜单3-2-1", icon: "el-icon-s-claim" },
                         },
                         {
                             path: "/menu3/menu3-2/menu3-2-2",
-                            component: () => import('../pages/menu3/menu3-2/menu3-2-2'),
+                            component: menu3_2_2,
                             meta: { title: "三级菜单3-2-2", icon: "el-icon-s-marketing" },
                         }
                     ]
@@ -91,15 +104,19 @@ export default new VueRouter({
             children: [
                 {
                     path: "/menu4/index",
-                    component: () => import('../pages/menu4'),
+                    component: menu4,
                     meta: { title: "一级菜单4", icon: "el-icon-s-shop" }
                 }
             ]
         }, {
             path: "/login",
-            component: () => import('../pages/login'),
+            component: login,
             hidden: true,
             meta: { title: "登录页" }
-        }, { path: '*', redirect: '/404', hidden: true }
+        }, {
+            path: '*',
+            redirect: '/404',
+            hidden: true
+        }
     ]
 })
