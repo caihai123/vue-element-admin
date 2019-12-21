@@ -21,7 +21,7 @@ router.beforeEach((to, from, next) => {
 })
 
 router.afterEach((to) => {
-  if (to.path !== '/redirect/index') {
+  if (to.path.slice(0, 9) !== '/redirect') {
     NProgress.done();
   }
 })
