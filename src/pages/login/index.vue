@@ -35,7 +35,7 @@
 <script>
 import axios from "axios";
 import NProgress from "nprogress";
-import { buildParams } from "../../utils/util";
+import { buildParams } from "@/utils/util";
 import md5 from "md5";
 export default {
   name: "login.vue",

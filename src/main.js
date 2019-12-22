@@ -4,20 +4,38 @@ import 'element-ui/lib/theme-chalk/index.css';
 import Fragment from 'vue-fragment'
 import NProgress from 'nprogress' // progress bar
 import 'nprogress/nprogress.css' // progress bar style
-import App from './App.vue'
-import router from './router'
+import App from '@/App.vue'
+import router from '@/router'
+import { concat } from "lodash";
+import getters from "@/permission.js"
 
 Vue.use(Fragment.Plugin)
 Vue.use(ElementUI);
 Vue.config.productionTip = false
 
-router.beforeEach((to, from, next) => {
+var roles = [];
+
+router.beforeEach(async (to, from, next) => {
   NProgress.start();
   /* 路由发生变化修改页面title */
   if (to.meta.title) {
     document.title = to.meta.title
   }
-  next()
+  if (to.path !== '/login') {
+    if (roles.length === 0) {
+      roles = await getters.getRouters();
+      router.addRoutes(roles);
+      router.options.routes = concat(
+        router.options.routes,
+        roles
+      );
+      next({ ...to, replace: true })//为确保addRoutes已完成，从新进入此路由，replace设置为true之后浏览器不会有多余的历史记录
+    } else {
+      next()
+    }
+  } else {
+    next()
+  }
 })
 
 router.afterEach((to) => {

@@ -8,6 +8,14 @@ module.exports = {
         pathRewrite: {
           '^/api': ''
         }
+      },
+      '/mock': {
+        target: 'https://caihai123.github.io/',
+        ws: true,
+        changeOrigin: true,
+        pathRewrite: {
+          '^/mock': ''
+        }
       }
     }
   }
