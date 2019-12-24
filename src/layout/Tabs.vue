@@ -1,28 +1,31 @@
 <template>
   <div class="tabs">
-    <div
-      v-for="item in tabsItem"
-      :key="item.id"
-      class="tabs-item"
-      :class="{'is-active':item.active}"
-    >
-      {{item.label}}
-      <i class="el-icon-close"></i>
-    </div>
+    <router-link v-for="item in tabsItem" :key="item.to" class="tabs-item" :to="item.to">
+      {{item.title}}
+      <i v-if="!item.fixation" class="el-icon-close"></i>
+    </router-link>
   </div>
 </template>
 
 <script>
+import store from "./store";
 export default {
   data() {
     return {
-      tabsItem: [
-        { id: "1", label: "首页", to: "/", active: true },
-        { id: "2", label: "文档", to: "/", active: false },
-        { id: "3", label: "引导页", to: "/", active: false },
-        { id: "4", label: "指令权限", to: "/", active: false }
-      ]
+      tabsItem: store.tabsItem
     };
+  },
+  mounted() {
+    this.initialize();
+  },
+  methods: {
+    initialize() {
+      const router = this.$route;
+      store.addTabs({
+        to: router.path,
+        title: router.meta.title
+      });
+    }
   }
 };
 </script>
@@ -51,12 +54,12 @@ export default {
   margin-left: 5px;
 }
 
-.tabs .is-active {
+.tabs .router-link-active {
   background-color: #42b983;
   color: #fff;
   border-color: #42b983;
 }
-.tabs .is-active::before {
+.tabs .router-link-active::before {
   content: "";
   background: #fff;
   display: inline-block;

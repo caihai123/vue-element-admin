@@ -12,7 +12,7 @@
       <side-bar v-else :key="item.children[0].path" :item="item.children[0]"></side-bar>
     </template>
 
-    <div v-else class="router-link" @click="router(item.redirect||item.path)">
+    <div v-else class="router-link" @click="router(item)">
       <el-menu-item :index="item.path">
         <Item :icon="item.meta.icon" :title="item.meta.title"></Item>
       </el-menu-item>
@@ -22,7 +22,9 @@
 
 <script>
 import Item from "./Item";
+import store from "@/layout/store";
 export default {
+  name: "side-bar",
   components: { Item },
   props: {
     item: {
@@ -30,9 +32,9 @@ export default {
       required: true
     }
   },
-  name: "side-bar",
   methods: {
-    router: function(to) {
+    router: function(item) {
+      var to = item.redirect || item.path;
       const { fullPath } = this.$route;
       if (fullPath === to) {
         this.$router.replace({
@@ -41,6 +43,10 @@ export default {
       } else {
         this.$router.push(to);
       }
+      store.addTabs({
+        to: to,
+        title: item.meta.title
+      });
     }
   }
 };
