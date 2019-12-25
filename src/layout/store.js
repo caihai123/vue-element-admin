@@ -1,12 +1,15 @@
 var store = {
     isCollapse: false,
     tabsItem: [
-        { title: "首页", to: "/index", fixation: true }
+
     ],
     setCollapse(collapse) {
         this.isCollapse = collapse
     },
     addTabs(tab) {
+        if (tab.to === '/index') {
+            return
+        }
         let len = this.tabsItem.length;
         for (let i = 0; i < len; i++) {
             if (tab.to === this.tabsItem[i].to) {
