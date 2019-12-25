@@ -1,19 +1,41 @@
 <template>
   <div class="tabs">
     <router-link class="tabs-item" to="/index">首页</router-link>
-    <router-link v-for="item in tabsItem" :key="item.to" class="tabs-item" :to="item.to">
-      {{item.title}}
-      <i class="el-icon-close"></i>
-    </router-link>
+    <draggable
+      v-model="tabsItem"
+      v-bind="options"
+      group="people"
+      @start="drag=true"
+      @end="drag=false"
+    >
+      <transition-group type="transition" name="flip-list">
+        <router-link v-for="item in tabsItem" :key="item.to" class="tabs-item" :to="item.to">
+          {{item.title}}
+          <i class="el-icon-close"></i>
+        </router-link>
+      </transition-group>
+    </draggable>
   </div>
 </template>
 
 <script>
+import draggable from "vuedraggable";
 import store from "./store";
 export default {
+  components: {
+    draggable
+  },
   data() {
     return {
-      tabsItem: store.tabsItem
+      tabsItem: store.tabsItem,
+      options: {
+        animation: 300, //拖动过程中的延时动画
+        forceFallback: false, //是否显示原生的html5的拖放
+        ghostClass: "ghost-class", //拖动项的类名
+        scroll: true, //当排序的容器是个可滚动的区域，拖放可以引起区域滚动
+        scrollSensitivity: 50, //就是鼠标靠近边缘多远开始滚动默认30
+        scrollSpeed: 500 //滚动速度，单位应该是:像素/秒
+      }
     };
   },
   mounted() {
@@ -40,10 +62,10 @@ export default {
   border-bottom: 1px solid #d8dce5;
   box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.12), 0 0 3px 0 rgba(0, 0, 0, 0.04);
   font-size: 12px;
-  color: #909399;
 }
 
 .tabs .tabs-item {
+  display: inline-block;
   height: 24px;
   line-height: 24px;
   margin-right: 5px;
@@ -80,5 +102,11 @@ export default {
   border-radius: 50%;
   position: relative;
   margin-right: 2px;
+}
+.ghost-class {
+  opacity: 0;
+}
+.flip-list-move {
+  transition: transform 0.5s;
 }
 </style>
