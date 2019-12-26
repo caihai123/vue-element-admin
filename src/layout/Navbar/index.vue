@@ -1,8 +1,8 @@
 <template>
   <div class="navbar">
     <div style="display: flex;">
-      <div class="hamburger" style="padding: 0 15px" @click="isCollapse=!isCollapse">
-        <i :class="{'el-icon-s-unfold':isCollapse,'el-icon-s-fold':!isCollapse}"></i>
+      <div class="hamburger" style="padding: 0 15px" @click="setCollapse(!store.isCollapse)">
+        <i :class="{'el-icon-s-unfold':store.isCollapse,'el-icon-s-fold':!store.isCollapse}"></i>
       </div>
       <el-breadcrumb separator="/" style="line-height: 48px;padding-left: 8px;">
         <el-breadcrumb-item :to="{path:'/',query: {t: +new Date()}}">首页</el-breadcrumb-item>
@@ -48,16 +48,11 @@
 </template>
 
 <script>
+import store from "./../store";
 export default {
-  props: {
-    sideShow: {
-      type: Boolean,
-      required: true
-    }
-  },
   data() {
     return {
-      isCollapse: this.sideShow,
+      store: store,
       breadcrumb: []
     };
   },
@@ -73,17 +68,14 @@ export default {
           item.path !== "/" &&
           item.path !== "/index"
       );
+    },
+    setCollapse(collapse) {
+      this.store.isCollapse = collapse;
     }
   },
   watch: {
     $route() {
       this.getBreadcrumb();
-    },
-    isCollapse() {
-      this.$emit("menuSwitch", this.isCollapse);
-    },
-    sideShow() {
-      this.isCollapse = this.sideShow;
     }
   }
 };

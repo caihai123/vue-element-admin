@@ -1,9 +1,13 @@
 <template>
   <div class="side-menu">
-    <div v-if="isDiminutive&&!isCollapse" @click="isCollapse=!isCollapse" class="drawer-bg"></div>
+    <div
+      v-if="isDiminutive&&!store.isCollapse"
+      @click="setCollapse(!store.isCollapse)"
+      class="drawer-bg"
+    ></div>
     <el-scrollbar
       wrap-class="scrollbar-wrapper"
-      :style="{marginLeft:isDiminutive && isCollapse ? '-210px' : '0',position:isDiminutive?'fixed':'relative'}"
+      :style="{marginLeft:isDiminutive && store.isCollapse ? '-210px' : '0',position:isDiminutive?'fixed':'relative'}"
     >
       <el-menu
         :default-active="activeMenu"
@@ -11,7 +15,7 @@
         background-color="#304156"
         text-color="rgb(191, 203, 217)"
         unique-opened
-        :collapse="!isDiminutive&&isCollapse"
+        :collapse="!isDiminutive&&store.isCollapse"
       >
         <side-bar v-for="route in routes" :key="route.path" :item="route"></side-bar>
       </el-menu>
@@ -22,19 +26,14 @@
 <script>
 import sideBar from "./sideBar";
 var { debounce } = require("lodash");
+import store from "./../store";
 export default {
   components: {
     sideBar
   },
-  props: {
-    sideShow: {
-      type: Boolean,
-      required: true
-    }
-  },
   data() {
     return {
-      isCollapse: this.sideShow,
+      store: store,
       isDiminutive: false, //是否小屏
       routes: []
     };
@@ -51,14 +50,17 @@ export default {
       if (document.body.offsetWidth < 1200) {
         if (!this.isDiminutive) {
           this.isDiminutive = true;
-          this.isCollapse = true;
+          this.setCollapse(true);
         }
       } else {
         if (this.isDiminutive) {
           this.isDiminutive = false;
-          this.isCollapse = false;
+          this.setCollapse(false);
         }
       }
+    },
+    setCollapse(collapse) {
+      this.store.setCollapse(collapse);
     }
   },
   computed: {
@@ -75,14 +77,8 @@ export default {
     $route() {
       //在小屏下路由改变时隐藏侧边栏
       if (this.isDiminutive == true) {
-        this.isCollapse = true;
+        this.setCollapse(true);
       }
-    },
-    sideShow() {
-      this.isCollapse = this.sideShow;
-    },
-    isCollapse() {
-      this.$emit("menuSwitch", this.isCollapse);
     }
   }
 };

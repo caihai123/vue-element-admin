@@ -1,9 +1,9 @@
 <template>
   <el-container class="admin-index">
-    <SideMenu :sideShow="isCollapse" @menuSwitch="menuSwitch" />
+    <SideMenu />
     <el-container>
       <el-header height="84px">
-        <Navbar :sideShow="isCollapse" @menuSwitch="menuSwitch" />
+        <Navbar />
         <Tabs />
       </el-header>
       <el-main>
@@ -30,14 +30,7 @@ export default {
     Tabs
   },
   data: function() {
-    return {
-      isCollapse: false
-    };
-  },
-  methods: {
-    menuSwitch(isCollapse) {
-      this.isCollapse = isCollapse;
-    }
+    return {};
   },
   computed: {
     key() {
