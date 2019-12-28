@@ -37,6 +37,7 @@ const constantRoutes = [
         children: [
             {
                 path: "/index",
+                name: 'index',
                 component: index,
                 meta: { title: "首页 按钮", icon: "el-icon-s-home" },
             }
