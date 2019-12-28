@@ -4,14 +4,7 @@
       <div class="hamburger" style="padding: 0 15px" @click="setCollapse(!store.isCollapse)">
         <i :class="{'el-icon-s-unfold':store.isCollapse,'el-icon-s-fold':!store.isCollapse}"></i>
       </div>
-      <el-breadcrumb separator="/" style="line-height: 48px;padding-left: 8px;">
-        <el-breadcrumb-item :to="{path:'/',query: {t: +new Date()}}">首页</el-breadcrumb-item>
-        <el-breadcrumb-item
-          v-for="item in breadcrumb"
-          :to="{path:item.path,query: {t: +new Date()}}"
-          :key="item.path"
-        >{{item.meta.title}}</el-breadcrumb-item>
-      </el-breadcrumb>
+      <Breadcrumb />
     </div>
     <div style="display: flex;margin-right:20px;">
       <div class="hamburger">
@@ -48,34 +41,20 @@
 </template>
 
 <script>
+import Breadcrumb from "./Breadcrumb";
 import store from "./../store";
 export default {
+  components: {
+    Breadcrumb
+  },
   data() {
     return {
-      store: store,
-      breadcrumb: []
+      store: store
     };
   },
-  created() {
-    this.getBreadcrumb();
-  },
   methods: {
-    getBreadcrumb() {
-      this.breadcrumb = this.$route.matched.filter(
-        item =>
-          item.meta &&
-          item.meta.title &&
-          item.path !== "/" &&
-          item.path !== "/index"
-      );
-    },
     setCollapse(collapse) {
       this.store.isCollapse = collapse;
-    }
-  },
-  watch: {
-    $route() {
-      this.getBreadcrumb();
     }
   }
 };
@@ -101,11 +80,5 @@ export default {
 
 .navbar .hamburger:hover {
   background: rgba(0, 0, 0, 0.025);
-}
-</style>
-<style>
-.el-breadcrumb__inner.is-link,
-.el-breadcrumb__separator {
-  font-weight: 400;
 }
 </style>

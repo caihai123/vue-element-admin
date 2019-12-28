@@ -61,6 +61,9 @@ function cleanRouter(routes) {
             if (routes[i].children.length === 0) {
                 routes.splice(i, 1)
             } else if (routes[i].children.length > 0) {
+                if (routes[i].children.length == 1) {
+                    delete routes[i].meta;
+                }
                 cleanRouter(routes[i].children);
                 i++
             }
