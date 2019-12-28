@@ -1,39 +1,74 @@
-import router from "../router"
-var store = {
-    isCollapse: false,
-    tabsItem: [
+import Vue from 'vue'
+import router from '@/router'
 
-    ],
-    setCollapse(collapse) {
-        this.isCollapse = collapse
-    },
-    addTabs(tab) {
-        if (tab.to === '/index') {
-            return
+//注意：修改data的数据时，不能出现改变引用地址的操作
+export default new Vue({
+    data() {
+        return {
+            isCollapse: false,
+            tabsItem: [],
+            include: ['index']
         }
-        let len = this.tabsItem.length;
-        for (let i = 0; i < len; i++) {
-            if (tab.to === this.tabsItem[i].to) {
+    },
+    methods: {
+        setCollapse(collapse) {
+            this.isCollapse = collapse
+        },
+        addTabs(tab) {
+            if (tab.to === '/index') {
                 return
             }
-        }
-        this.tabsItem.push(tab)
-    },
-    delTabs(index, path) {
-        var self = this;
-        if (self.tabsItem[index].to === path) {
-            self.tabsItem.splice(index, 1);
-            if (self.tabsItem[index]) {
-                router.push({ path: self.tabsItem[index].to });
-            } else if (self.tabsItem[index - 1]) {
-                router.push({ path: self.tabsItem[index - 1].to });
-            } else {
-                router.push({ path: '/index' });
+            let len = this.tabsItem.length;
+            for (let i = 0; i < len; i++) {
+                if (tab.to === this.tabsItem[i].to) {
+                    return
+                }
             }
-        } else {
-            self.tabsItem.splice(index, 1);
+            this.tabsItem.push(tab);
+            if (tab.name) {
+                this.addInclude(tab.name)
+            }
+        },
+        delTabs(index, path) {
+            var self = this;
+            if (self.tabsItem[index].to === path) {
+                if (self.tabsItem[index].name) {
+                    self.dalInclude(self.tabsItem[index].name)
+                }
+                self.tabsItem.splice(index, 1);
+
+                if (self.tabsItem[index]) {
+                    router.push({ path: self.tabsItem[index].to });
+                } else if (self.tabsItem[index - 1]) {
+                    router.push({ path: self.tabsItem[index - 1].to });
+                } else {
+                    router.push({ path: '/index' });
+                }
+            } else {
+                if (self.tabsItem[index].name) {
+                    self.dalInclude(self.tabsItem[index].name)
+                }
+                self.tabsItem.splice(index, 1);
+            }
+        },
+        addInclude(name) {
+            var len = this.include.length;
+            for (let i = 0; i < len; i++) {
+                if (this.include[i] === name) {
+                    return
+                }
+            }
+            this.include.push(name)
+        },
+        dalInclude(name) {
+            var len = this.include.length;
+            for (let i = 0; i < len;) {
+                if (this.include[i] === name) {
+                    this.include.splice(i, 1)
+                } else {
+                    i++
+                }
+            }
         }
     }
-}
-
-export default store
+})

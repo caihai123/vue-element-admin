@@ -37,6 +37,7 @@
 
 <script>
 export default {
+  name: "menu2",
   data() {
     return {
       value: "",

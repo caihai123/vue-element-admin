@@ -45,6 +45,7 @@ export default {
       }
       store.addTabs({
         to: to,
+        name: item.name,
         title: item.meta.title
       });
     }

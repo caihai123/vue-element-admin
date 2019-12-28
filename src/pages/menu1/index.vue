@@ -16,6 +16,7 @@ import axios from "../../utils/axios";
 import { buildParams } from "../../utils/util";
 
 export default {
+  name: "menu1",
   data() {
     return {
       tableData: [],

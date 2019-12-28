@@ -9,7 +9,7 @@
       <el-main>
         <div class="app-main">
           <transition name="fade-transform" mode="out-in">
-            <keep-alive>
+            <keep-alive :include="include">
               <router-view :key="key" />
             </keep-alive>
           </transition>
@@ -24,6 +24,7 @@
 import SideMenu from "./SideMenu";
 import Navbar from "./Navbar";
 import Tabs from "./Tabs";
+import store from "./store";
 export default {
   components: {
     SideMenu,
@@ -31,7 +32,9 @@ export default {
     Tabs
   },
   data: function() {
-    return {};
+    return {
+      include: store.include
+    };
   },
   computed: {
     key() {

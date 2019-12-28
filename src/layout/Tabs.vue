@@ -51,6 +51,7 @@ export default {
       const router = this.$route;
       store.addTabs({
         to: router.path,
+        name: router.name,
         title: router.meta.title
       });
     },
