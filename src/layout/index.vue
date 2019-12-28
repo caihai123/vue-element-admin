@@ -9,7 +9,9 @@
       <el-main>
         <div class="app-main">
           <transition name="fade-transform" mode="out-in">
-            <router-view :key="key" />
+            <keep-alive>
+              <router-view :key="key" />
+            </keep-alive>
           </transition>
         </div>
       </el-main>
@@ -23,7 +25,6 @@ import SideMenu from "./SideMenu";
 import Navbar from "./Navbar";
 import Tabs from "./Tabs";
 export default {
-  name: "index",
   components: {
     SideMenu,
     Navbar,

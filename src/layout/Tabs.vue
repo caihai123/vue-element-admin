@@ -9,9 +9,14 @@
       @end="drag=false"
     >
       <transition-group type="transition" name="flip-list">
-        <router-link v-for="item in tabsItem" :key="item.to" class="tabs-item" :to="item.to">
+        <router-link
+          v-for="(item,index) in tabsItem"
+          :key="item.to"
+          class="tabs-item"
+          :to="item.to"
+        >
           {{item.title}}
-          <i class="el-icon-close"></i>
+          <i class="el-icon-close" @click.prevent.stop="delTabs(index)"></i>
         </router-link>
       </transition-group>
     </draggable>
@@ -48,6 +53,22 @@ export default {
         to: router.path,
         title: router.meta.title
       });
+    },
+    //删除tabs
+    delTabs(index) {
+      var path = this.path;
+      store.delTabs(index, path);
+    }
+  },
+  computed: {
+    path() {
+      return this.$route.path;
+    }
+  },
+  watch: {
+    //draggable组件导致的tabsItem改变不会作用到store里，所有手动改变，不然会有bug
+    tabsItem: function() {
+      store.tabsItem = this.tabsItem;
     }
   }
 };
@@ -106,7 +127,16 @@ export default {
 .ghost-class {
   opacity: 0;
 }
-.flip-list-move {
+/*因为有过渡动画，导致在删除tabs时会有延迟，不太好看，暂时隐藏掉*/
+/* .flip-list-move {
   transition: transform 0.5s;
+} */
+.el-icon-close {
+  border-radius: 50%;
+  font-size: 12px;
+}
+.el-icon-close:hover {
+  background-color: #c0c4cc;
+  color: #fff;
 }
 </style>

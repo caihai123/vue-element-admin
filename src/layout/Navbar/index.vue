@@ -39,7 +39,7 @@
             <el-dropdown-item>修改密码</el-dropdown-item>
           </router-link>
           <router-link to="/login">
-            <el-dropdown-item divided>登出</el-dropdown-item>
+            <el-dropdown-item divided>退出登陆</el-dropdown-item>
           </router-link>
         </el-dropdown-menu>
       </el-dropdown>
