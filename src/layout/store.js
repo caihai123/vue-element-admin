@@ -14,19 +14,26 @@ export default new Vue({
         setCollapse(collapse) {
             this.isCollapse = collapse
         },
-        addTabs(tab) {
-            if (tab.to === '/index') {
-                return
-            }
-            let len = this.tabsItem.length;
-            for (let i = 0; i < len; i++) {
-                if (tab.to === this.tabsItem[i].to) {
+        addTabs(route) {
+            if (route.meta && route.meta.title) {
+                let tab = {
+                    to: route.path,
+                    name: route.name,
+                    title: route.meta.title
+                }
+                if (tab.to === '/index') {
                     return
                 }
-            }
-            this.tabsItem.push(tab);
-            if (tab.name) {
-                this.addInclude(tab.name)
+                let len = this.tabsItem.length;
+                for (let i = 0; i < len; i++) {
+                    if (tab.to === this.tabsItem[i].to) {
+                        return
+                    }
+                }
+                this.tabsItem.push(tab);
+                if (tab.name) {
+                    this.addInclude(tab.name)
+                }
             }
         },
         delTabs(index, path) {

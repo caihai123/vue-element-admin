@@ -46,11 +46,6 @@ export default {
       } else {
         this.$router.push(to);
       }
-      store.addTabs({
-        to: to,
-        name: item.name,
-        title: item.meta.title
-      });
     }
   }
 };
