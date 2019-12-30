@@ -1,7 +1,7 @@
 <template>
   <div class="tabs-scroll">
     <div class="arrows el-icon-arrow-left" @click="prev"></div>
-    <div class="box">
+    <div class="box" @wheel.prevent="handleScroll">
       <div class="tabs">
         <slot />
       </div>
@@ -81,6 +81,10 @@ export default {
           record = this.domBox.scrollLeft;
         }, 20);
       }
+    },
+    handleScroll(e) {
+      const eventDelta = e.wheelDelta || -e.deltaY * 40;
+      this.domBox.scrollLeft = this.domBox.scrollLeft + eventDelta / 4;
     }
   }
 };
