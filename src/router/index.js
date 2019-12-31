@@ -37,6 +37,7 @@ const constantRoutes = [
         children: [
             {
                 path: "/index",
+                name: 'index',
                 component: index,
                 meta: { title: "首页 按钮", icon: "el-icon-s-home" },
             }
@@ -79,6 +80,7 @@ export const asyncRoutes = [
             {
                 path: "/menu1/index",
                 component: menu1,
+                name: 'menu1',
                 meta: { title: "一级菜单 表格", icon: "el-icon-s-marketing" },
             }
         ],
@@ -90,6 +92,7 @@ export const asyncRoutes = [
             {
                 path: "/menu2/index",
                 component: menu2,
+                name: 'menu2',
                 meta: { title: "一级菜单 输入框", icon: "el-icon-s-data" }
             }]
     }, {
@@ -130,6 +133,7 @@ export const asyncRoutes = [
             {
                 path: "/menu4/index",
                 component: menu4,
+                name: 'menu4',
                 meta: { title: "一级菜单4", icon: "el-icon-s-shop" }
             }
         ]

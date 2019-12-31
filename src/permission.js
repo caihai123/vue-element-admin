@@ -5,7 +5,7 @@ import axios from "@/utils/axios"
 var getRouters = async function () {
     await axios.get("/mock/applet/jsons/caihai.json").then(function (val) {
         let roles = val.data.data;
-        roles = ['/menu1/index', "/menu2", "/menu3", "/menu3/menu3-2", '/menu3/menu3-2/menu3-2-2', "/menu4"]
+        roles = ['/menu1/index', "/menu2", "/menu3/menu3-2", '/menu3/menu3-1', "/menu3/menu3-2/menu3-2-2", "/menu4"]
         asyncRoutes.splice(asyncRoutes.length - 1, 1)
         roles.forEach(role => {
             signRouter(asyncRoutes, role)
@@ -61,6 +61,9 @@ function cleanRouter(routes) {
             if (routes[i].children.length === 0) {
                 routes.splice(i, 1)
             } else if (routes[i].children.length > 0) {
+                if (routes[i].children.length == 1) {
+                    delete routes[i].meta;
+                }
                 cleanRouter(routes[i].children);
                 i++
             }

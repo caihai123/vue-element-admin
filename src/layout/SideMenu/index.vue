@@ -95,7 +95,7 @@ export default {
   height: 100%;
   transition: margin-left 0.28s;
   background-color: #304156;
-  z-index: 1002;
+  z-index: 2002;
 }
 .side-menu .el-menu {
   border-right: none;
@@ -109,6 +109,6 @@ export default {
   top: 0;
   height: 100%;
   position: absolute;
-  z-index: 999;
+  z-index: 1002;
 }
 </style>

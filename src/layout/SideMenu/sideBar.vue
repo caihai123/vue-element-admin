@@ -37,16 +37,15 @@ export default {
       var to = item.redirect || item.path;
       const { fullPath } = this.$route;
       if (fullPath === to) {
+        if (item.name) {
+          store.dalInclude(item.name);
+        }
         this.$router.replace({
           path: "/redirect" + fullPath
         });
       } else {
         this.$router.push(to);
       }
-      store.addTabs({
-        to: to,
-        title: item.meta.title
-      });
     }
   }
 };
