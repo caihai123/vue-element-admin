@@ -57,8 +57,8 @@ export default {
       store.delTabs(index, path);
     },
     moveToCurrentTag() {
-      const tags = this.$refs.tag;
       this.$nextTick(() => {
+        const tags = this.$refs.tag;
         if (this.$route.path === "/index") {
           this.$refs.scrollPane.moveCenter({
             to: "/index"
