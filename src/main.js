@@ -8,6 +8,7 @@ import App from '@/App.vue'
 import router from '@/router'
 import { concat } from "lodash";
 import getters from "@/permission.js"
+import store from "@/store"
 
 Vue.use(Fragment.Plugin)
 Vue.use(ElementUI);
@@ -46,5 +47,6 @@ router.afterEach((to) => {
 
 new Vue({
   render: h => h(App),
-  router
+  router,
+  store
 }).$mount('#app')

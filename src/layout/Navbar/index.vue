@@ -1,8 +1,8 @@
 <template>
   <div class="navbar">
     <div style="display: flex;">
-      <div class="hamburger" style="padding: 0 15px" @click="setCollapse(!store.isCollapse)">
-        <i :class="{'el-icon-s-unfold':store.isCollapse,'el-icon-s-fold':!store.isCollapse}"></i>
+      <div class="hamburger" style="padding: 0 15px" @click="setCollapse(!isCollapse)">
+        <i :class="{'el-icon-s-unfold':isCollapse,'el-icon-s-fold':!isCollapse}"></i>
       </div>
       <Breadcrumb />
     </div>
@@ -42,19 +42,18 @@
 
 <script>
 import Breadcrumb from "./Breadcrumb";
-import store from "./../store";
 export default {
   components: {
     Breadcrumb
   },
-  data() {
-    return {
-      store: store
-    };
-  },
   methods: {
     setCollapse(collapse) {
-      this.store.isCollapse = collapse;
+      this.$store.commit("setCollapse", collapse);
+    }
+  },
+  computed: {
+    isCollapse() {
+      return this.$store.state.layout.isCollapse;
     }
   }
 };

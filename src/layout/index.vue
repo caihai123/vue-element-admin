@@ -24,21 +24,18 @@
 import SideMenu from "./SideMenu";
 import Navbar from "./Navbar";
 import Tabs from "./Tabs";
-import store from "./store";
 export default {
   components: {
     SideMenu,
     Navbar,
     Tabs
   },
-  data: function() {
-    return {
-      include: store.include
-    };
-  },
   computed: {
     key() {
       return this.$route.path;
+    },
+    include() {
+      return this.$store.state.layout.include;
     }
   }
 };
