@@ -22,7 +22,6 @@
 
 <script>
 import Item from "./Item";
-import store from "@/layout/store";
 export default {
   name: "side-bar",
   components: { Item },
@@ -33,16 +32,15 @@ export default {
     }
   },
   methods: {
-    router: function(item) {
+    router: async function(item) {
       var to = item.redirect || item.path;
       const { fullPath } = this.$route;
       if (fullPath === to) {
-        if (item.name) {
-          store.dalInclude(item.name);
-        }
-        this.$router.replace({
+        this.$store.commit("delInclude", item.name);
+        await this.$router.replace({
           path: "/redirect" + fullPath
         });
+        this.$store.commit("addInclude", item.name);
       } else {
         this.$router.push(to);
       }
