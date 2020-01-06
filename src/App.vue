@@ -12,6 +12,7 @@ export default {
 
 <style>
 @import "~@/styles/transition.css";
+@import "~@/styles/pan-button.css";
 
 html {
   height: 100%;

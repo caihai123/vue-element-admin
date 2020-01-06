@@ -1,6 +1,26 @@
 <template>
-  <div>
+  <div style="height:500px">
     <CountUp :endVal="2020" />
+    <el-row>
+      <el-col :span="4">
+        <router-link class="pan-btn pan-blue" to="/">默认按钮</router-link>
+      </el-col>
+      <el-col :span="4">
+        <router-link class="pan-btn pan-primary" to="/">主要按钮</router-link>
+      </el-col>
+      <el-col :span="4">
+        <router-link class="pan-btn pan-success" to="/">成功按钮</router-link>
+      </el-col>
+      <el-col :span="4">
+        <router-link class="pan-btn pan-info" to="/">信息按钮</router-link>
+      </el-col>
+      <el-col :span="4">
+        <router-link class="pan-btn pan-warning" to="/">警告按钮</router-link>
+      </el-col>
+      <el-col :span="4">
+        <router-link class="pan-btn pan-danger" to="/">危险按钮</router-link>
+      </el-col>
+    </el-row>
   </div>
 </template>
 
