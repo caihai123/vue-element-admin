@@ -5,6 +5,8 @@
 </template>
 
 <script>
+import "@/utils/install.js";
+
 export default {
   name: "app"
 };
