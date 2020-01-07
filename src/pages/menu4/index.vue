@@ -1,6 +1,9 @@
 <template>
   <div style="height:500px">
-    <CountUp :endVal="endVal" />
+    <div style="font-size:36px;color:#e65d6e;">
+      你一共欠我：￥
+      <CountUp :endVal="endVal" />rmb
+    </div>
     <el-row>
       <el-col :span="4">
         <div class="pan-btn pan-blue" @click="update">默认按钮</div>
@@ -29,18 +32,23 @@
       <el-button v-waves type="warning">警告按钮</el-button>
       <el-button v-waves type="danger">危险按钮</el-button>
     </el-row>
+    <div style="padding:10px 0;">
+      <mallki text="蔡海哈哈哈哈" />
+    </div>
   </div>
 </template>
 
 <script>
 import CountUp from "@/components/CountUp";
+import Mallki from "@/components/Mallki";
 export default {
   components: {
-    CountUp
+    CountUp,
+    Mallki
   },
   data() {
     return {
-      endVal: 2020
+      endVal: 20201024996
     };
   },
   methods: {
