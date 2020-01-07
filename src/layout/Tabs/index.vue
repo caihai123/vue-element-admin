@@ -80,7 +80,6 @@ export default {
   methods: {
     moveToCurrentTag() {
       this.$nextTick(() => {
-        const tags = this.$refs.tag;
         if (this.$route.path === "/index") {
           this.$refs.scrollPane.moveCenter({
             to: "/index"

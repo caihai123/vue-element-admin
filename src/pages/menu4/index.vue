@@ -1,9 +1,9 @@
 <template>
   <div style="height:500px">
-    <CountUp :endVal="2020" />
+    <CountUp :endVal="endVal" />
     <el-row>
       <el-col :span="4">
-        <router-link class="pan-btn pan-blue" to="/">默认按钮</router-link>
+        <div class="pan-btn pan-blue" @click="update">默认按钮</div>
       </el-col>
       <el-col :span="4">
         <router-link class="pan-btn pan-primary" to="/">主要按钮</router-link>
@@ -29,6 +29,16 @@ import CountUp from "@/components/CountUp";
 export default {
   components: {
     CountUp
+  },
+  data() {
+    return {
+      endVal: 2020
+    };
+  },
+  methods: {
+    update() {
+      this.endVal = this.endVal + 2020;
+    }
   }
 };
 </script>

@@ -43,6 +43,11 @@ export default {
       this.numAnim = new CountUp(this.$el, this.endVal, this.options);
       this.numAnim.start();
     }
+  },
+  watch: {
+    endVal(value) {
+      this.numAnim.update(value);
+    }
   }
 };
 </script>
