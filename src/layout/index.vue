@@ -16,7 +16,13 @@
         </div>
       </el-main>
     </el-container>
-    <el-backtop target="main"></el-backtop>
+    <el-backtop target="main">
+      <el-tooltip effect="dark" content="回到顶部" placement="top">
+        <div class="el-backtop" style="right: 40px; bottom: 40px;">
+          <i class="el-icon-caret-top"></i>
+        </div>
+      </el-tooltip>
+    </el-backtop>
   </el-container>
 </template>
 
