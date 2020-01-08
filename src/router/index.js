@@ -74,6 +74,13 @@ const constantRoutes = [
                 path: '/error/404',
                 component: error404,
                 meta: { title: "404" },
+                beforeEnter: (to, from, next) => {
+                    if (from.fullPath === '/' || from.fullPath === '/login') {
+                        next('/404')
+                    } else {
+                        next()
+                    }
+                },
                 hidden: true,
             }
         ]
