@@ -64,6 +64,19 @@ const constantRoutes = [
         path: '/404',
         component: error404,
         hidden: true,
+    },
+    {
+        path: '/error',
+        component: Layout,
+        redirect: '/error/404',
+        children: [
+            {
+                path: '/error/404',
+                component: error404,
+                meta: { title: "404" },
+                hidden: true,
+            }
+        ]
     }
 ]
 export default new VueRouter({
@@ -104,6 +117,7 @@ export const asyncRoutes = [
             {
                 path: "/menu3/menu3-1",
                 component: menu3_1,
+                name: 'menu3_1',
                 meta: { title: "二级菜单 表单", icon: "el-icon-s-cooperation" },
             },
             {
@@ -139,7 +153,13 @@ export const asyncRoutes = [
         ]
     }, {
         path: '*',
-        redirect: '/404',
+        beforeEnter: (to, from, next) => {
+            if (from.fullPath === '/' || from.fullPath === '/login') {
+                next('/404')
+            } else {
+                next({ path: '/error/404' })
+            }
+        },
         hidden: true
     }
 ]

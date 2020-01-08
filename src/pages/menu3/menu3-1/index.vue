@@ -66,6 +66,7 @@
 
 <script>
 export default {
+  name: "menu3_1",
   data() {
     return {
       ruleForm: {

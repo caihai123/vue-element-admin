@@ -3,10 +3,11 @@ import axios from "@/utils/axios"
 
 //获取有权限的路由
 var getRouters = async function () {
+    var error404;
     await axios.get("/mock/applet/jsons/caihai.json").then(function (val) {
         let roles = val.data.data;
         roles = ['/menu1/index', "/menu2", "/menu3/menu3-2", '/menu3/menu3-1', "/menu3/menu3-2/menu3-2-2", "/menu4"]
-        asyncRoutes.splice(asyncRoutes.length - 1, 1)
+        error404 = asyncRoutes.splice(asyncRoutes.length - 1, 1)[0];
         roles.forEach(role => {
             signRouter(asyncRoutes, role)
         });
@@ -14,11 +15,7 @@ var getRouters = async function () {
         cleanRouter(asyncRoutes)
     })
     // 必须最后注册404页面
-    asyncRoutes.push({
-        path: '*',
-        redirect: '/404',
-        hidden: true
-    })
+    asyncRoutes.push(error404)
     return asyncRoutes
 }
 
