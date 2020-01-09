@@ -9,7 +9,7 @@
         <div class="pan-btn pan-blue" @click="update">默认按钮</div>
       </el-col>
       <el-col :span="4">
-        <router-link class="pan-btn pan-primary" to="/">主要按钮</router-link>
+        <a class="pan-btn pan-primary" @click="routerParams">带参跳转到表单页面</a>
       </el-col>
       <el-col :span="4">
         <router-link class="pan-btn pan-success" to="/">成功按钮</router-link>
@@ -54,6 +54,15 @@ export default {
   methods: {
     update() {
       this.endVal = this.endVal + 2020;
+    },
+    routerParams() {
+      this.$router.push({
+        path: "/menu3/menu3-1",
+        query: {
+          userId: 555
+        },
+        force: true
+      });
     }
   }
 };
