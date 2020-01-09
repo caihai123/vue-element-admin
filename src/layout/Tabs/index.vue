@@ -17,7 +17,7 @@
         <transition-group type="transition" name="flip-list">
           <router-link
             v-for="item in tabsItem"
-            :key="item.to"
+            :key="item.title"
             ref="tag"
             class="tabs-item"
             :to="item.to"
