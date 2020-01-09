@@ -32,7 +32,18 @@ router.beforeEach(async (to, from, next) => {
       );
       next({ ...to, replace: true })//为确保addRoutes已完成，从新进入此路由，replace设置为true之后浏览器不会有多余的历史记录
     } else {
-      next()
+      let list1 = store.state.layout.tabsItem.filter(item => item.to.replace(/\?.*/, '') === to.fullPath.replace(/\?.*/, ''));
+      let list2 = store.state.layout.tabsItem.filter(item => item.to === to.fullPath)
+      if (list1.length > 0 && list2.length == 0) {
+        if (to.name) {
+          await store.commit("delInclude", to.name);
+          next()
+        } else {
+          next()
+        }
+      } else {
+        next()
+      }
     }
   } else {
     next()
