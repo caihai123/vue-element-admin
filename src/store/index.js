@@ -17,15 +17,26 @@ const layout = {
         addTabs(state, route) {
             if (route.meta && route.meta.title) {
                 let tab = {
-                    to: route.path,
+                    to: route.fullPath,
                     name: route.name,
                     title: route.meta.title
                 }
                 if (tab.to === '/index') {
                     return
                 }
-                let item = state.tabsItem.filter(item => item.to === tab.to);
-                if (!item.length) {
+                let is = true;
+                let item = state.tabsItem.filter(item => {
+                    if (item.to === tab.to) {
+                        return true
+                    } else {
+                        if (tab.to.replace(/\?.*/, "") === item.to.replace(/\?.*/, "")) {
+                            item.to = tab.to;
+                            is = false;
+                        }
+                        return false
+                    }
+                });
+                if (!item.length && is) {
                     state.tabsItem.push(tab)
                 }
                 if (tab.name) {
