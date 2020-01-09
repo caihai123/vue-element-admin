@@ -14,7 +14,7 @@
         @end="drag=false"
         tag="span"
       >
-        <transition-group type="transition" name="flip-list">
+        <transition-group tag="span" name="flip-list">
           <router-link
             v-for="item in tabsItem"
             :key="item.title"
@@ -197,6 +197,7 @@ export default {
 }
 .tabs-item {
   display: inline-block;
+  overflow: hidden;
   height: 24px;
   line-height: 24px;
   margin-right: 5px;
@@ -237,10 +238,18 @@ export default {
 .ghost-class {
   opacity: 0;
 }
-/*因为有过渡动画，导致在删除tabs时会有延迟，不太好看，暂时隐藏掉*/
-/* .flip-list-move {
+.flip-list-move {
   transition: transform 0.5s;
-} */
+}
+.flip-list-enter-active,
+.flip-list-leave-active {
+  transition: all 0.5s;
+}
+.flip-list-enter,
+.flip-list-leave-to {
+  opacity: 0;
+  transform: translateX(30px);
+}
 .el-icon-close {
   border-radius: 50%;
   font-size: 12px;
