@@ -34,11 +34,11 @@ export default {
   methods: {
     router: async function(item) {
       var to = item.redirect || item.path;
-      const { fullPath } = this.$route;
-      if (fullPath === to) {
+      const { path } = this.$route;
+      if (path === to) {
         this.$store.commit("delInclude", item.name);
         await this.$router.replace({
-          path: "/redirect" + fullPath
+          path: "/redirect" + to
         });
         this.$store.commit("addInclude", item.name);
       } else {
