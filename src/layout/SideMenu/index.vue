@@ -13,7 +13,7 @@
         unique-opened
         :collapse="!isDiminutive&&isCollapse"
       >
-        <side-bar v-for="route in routes" :key="route.path" :item="route"></side-bar>
+        <side-bar v-for="(route,index) in routes" :key="index" :item="route"></side-bar>
       </el-menu>
     </el-scrollbar>
   </div>

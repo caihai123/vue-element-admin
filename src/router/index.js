@@ -93,24 +93,22 @@ export default new VueRouter({
 /*需要权限验证的路由*/
 export const asyncRoutes = [
     {
-        path: "/menu1",
+        path: "/",
         component: Layout,
-        redirect: '/menu1/index',
         children: [
             {
-                path: "/menu1/index",
+                path: "/menu1",
                 component: menu1,
                 name: 'menu1',
                 meta: { title: "一级菜单 表格", icon: "el-icon-s-marketing" },
             }
         ],
     }, {
-        path: "/menu2",
+        path: "/",
         component: Layout,
-        redirect: '/menu2/index',
         children: [
             {
-                path: "/menu2/index",
+                path: "/menu2",
                 component: menu2,
                 name: 'menu2',
                 meta: { title: "一级菜单 输入框", icon: "el-icon-s-data" }
@@ -135,11 +133,13 @@ export const asyncRoutes = [
                 children: [
                     {
                         path: "/menu3/menu3-2/menu3-2-1",
+                        name: 'menu3-2-1',
                         component: menu3_2_1,
                         meta: { title: "三级菜单3-2-1", icon: "el-icon-s-claim" },
                     },
                     {
                         path: "/menu3/menu3-2/menu3-2-2",
+                        name: 'menu3-2-2',
                         component: menu3_2_2,
                         meta: { title: "三级菜单3-2-2", icon: "el-icon-s-marketing" },
                     }
@@ -147,12 +147,11 @@ export const asyncRoutes = [
             }
         ]
     }, {
-        path: "/menu4",
+        path: "/",
         component: Layout,
-        redirect: '/menu4/index',
         children: [
             {
-                path: "/menu4/index",
+                path: "/menu4",
                 component: menu4,
                 name: 'menu4',
                 meta: { title: "一级菜单4", icon: "el-icon-s-shop" }
