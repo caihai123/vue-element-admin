@@ -132,6 +132,9 @@ export default {
     resetForm(formName) {
       this.$refs[formName].resetFields();
     }
+  },
+  mounted() {
+    this.ruleForm.name = this.$route.params.userId;
   }
 };
 </script>

@@ -22,6 +22,9 @@ router.beforeEach(async (to, from, next) => {
   if (to.meta.title) {
     document.title = to.meta.title
   }
+  if (Object.keys(to.query).length !== 0) {
+    window.console.warn('不能使用query传递参数')
+  }
   if (to.path !== '/login') {
     if (roles.length === 0) {
       roles = await getters.getRouters();
@@ -32,18 +35,11 @@ router.beforeEach(async (to, from, next) => {
       );
       next({ ...to, replace: true })//为确保addRoutes已完成，从新进入此路由，replace设置为true之后浏览器不会有多余的历史记录
     } else {
-      let list1 = store.state.layout.tabsItem.filter(item => item.to.replace(/\?.*/, '') === to.fullPath.replace(/\?.*/, ''));
-      let list2 = store.state.layout.tabsItem.filter(item => item.to === to.fullPath)
-      if (list1.length > 0 && list2.length == 0) {
-        if (to.name) {
-          await store.commit("delInclude", to.name);
-          next()
-        } else {
-          next()
-        }
-      } else {
-        next()
+      if (Object.keys(to.params).length !== 0) {
+        //如果有参数则删除缓存再进入
+        await store.commit("delInclude", to.name);
       }
+      next()
     }
   } else {
     next()

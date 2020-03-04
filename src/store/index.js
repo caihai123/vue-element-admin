@@ -15,35 +15,22 @@ const layout = {
         },
         //增加tabs导航
         addTabs(state, route) {
-            if (route.meta && route.meta.title) {
+            if (route.meta && route.meta.title && route.name) {
                 let tab = {
                     to: route.fullPath,
                     name: route.name,
                     title: route.meta.title
                 }
-                if (tab.to === '/index') {
+                if (tab.name === 'index') {
                     return
                 }
-                let is = true;
-                let item = state.tabsItem.filter(item => {
-                    if (item.to === tab.to) {
-                        return true
-                    } else {
-                        if (tab.to.replace(/\?.*/, "") === item.to.replace(/\?.*/, "")) {
-                            item.to = tab.to;
-                            is = false;
-                        }
-                        return false
-                    }
-                });
-                if (!item.length && is) {
+                let item = state.tabsItem.filter(item => item.name === tab.name);
+                if (!item.length) {
                     state.tabsItem.push(tab)
                 }
-                if (tab.name) {
-                    let item = state.include.filter(item => item === tab.name);
-                    if (!item.length) {
-                        state.include.push(tab.name)
-                    }
+                item = state.include.filter(item => item === tab.name);
+                if (!item.length) {
+                    state.include.push(tab.name)
                 }
             }
         },

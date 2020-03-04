@@ -98,7 +98,7 @@ export default {
   background-color: #2d3a4b;
 }
 .login-container .login {
-  width: 520px;
+  max-width: 520px;
   margin: 0 auto;
   box-sizing: border-box;
   padding: 160px 35px 0 35px;

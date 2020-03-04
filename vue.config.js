@@ -1,5 +1,6 @@
 module.exports = {
   devServer: {
+    https: false,
     proxy: {
       '/api': {
         target: 'https://tc.lookdoor.cn:6443/',
