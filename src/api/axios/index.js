@@ -1,6 +1,6 @@
 import axios from "axios"
 import Vue from 'vue'
-import router from "../router"
+import router from "@/router"
 
 var vueObj = new Vue();
 
@@ -11,6 +11,7 @@ function errorNotify(msg) {
     });
 }
 
+axios.defaults.baseURL = process.env.NODE_ENV === 'production' ? 'https://tc.lookdoor.cn:6443/' : '/api';
 axios.defaults.timeout = 60000;
 axios.defaults.headers['X-Requested-With'] = 'XMLHttpRequest';
 

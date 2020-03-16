@@ -33,9 +33,8 @@
 </template>
 
 <script>
-import axios from "axios";
+import { login } from "@/api/axios/user.js";
 import NProgress from "nprogress";
-import { buildParams } from "@/utils/util";
 import md5 from "md5";
 export default {
   name: "login.vue",
@@ -57,31 +56,18 @@ export default {
         if (valid) {
           self.loading = true;
           NProgress.start();
-          axios
-            .post(
-              "/api/user/login.json",
-              buildParams({
-                loginName: self.loginForm.userName,
-                password: md5(self.loginForm.userPassword)
-              })
-            )
-            .then(function(val) {
+          login({
+            loginName: self.loginForm.userName,
+            password: md5(self.loginForm.userPassword)
+          })
+            .then(() => {
               self.loading = false;
               NProgress.done();
-              if (val.data.code === 200) {
-                self.$router.push("/");
-              } else {
-                self.$notify.error({
-                  title: "错误",
-                  message: val.data.message
-                });
-              }
+              self.$router.push("/");
             })
-            .catch(function(error) {
-              self.$notify.error({
-                title: "错误",
-                message: error.Error
-              });
+            .catch(() => {
+              self.loading = false;
+              NProgress.done();
             });
         }
       });

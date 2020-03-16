@@ -12,8 +12,7 @@
 </template>
 
 <script>
-import axios from "../../utils/axios";
-import { buildParams } from "../../utils/util";
+import { getList } from "@/api/axios/user.js";
 
 export default {
   name: "menu1",
@@ -30,22 +29,17 @@ export default {
     getTableData: function() {
       var self = this;
       self.tableLoading = true;
-      axios
-        .post(
-          "/api/equipOnline/selectEquipOnlineListWithPage.json",
-          buildParams({
-            blockCode: "5201030003",
-            isDay: true,
-            page: 1,
-            pageSize: 15
-          })
-        )
-        .then(val => {
-          if (val.data.data) {
-            self.tableData = val.data.data.rows;
-          }
-          self.tableLoading = false;
-        });
+      getList({
+        blockCode: "5201030003",
+        isDay: true,
+        page: 1,
+        pageSize: 15
+      }).then(val => {
+        if (val.data.data) {
+          self.tableData = val.data.data.rows;
+        }
+        self.tableLoading = false;
+      });
     }
   }
 };

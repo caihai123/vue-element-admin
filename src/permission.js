@@ -1,12 +1,13 @@
 import { asyncRoutes } from "@/router";
-import axios from "@/utils/axios"
+import { routerList } from "@/api/request/applet.js"
 
 //获取有权限的路由
 var getRouters = async function () {
     var error404;
-    await axios.get("/mock/applet/jsons/caihai.json").then(function (val) {
+    await routerList().then(function (val) {
         let roles = val.data.data;
-        roles = ['/menu1/index', "/menu2", "/menu3/menu3-2", '/menu3/menu3-1', "/menu3/menu3-2/menu3-2-2", "/menu4"]
+        window.console.log(val.data.data)
+        roles = ["/menu2", "/menu3/menu3-2", '/menu3/menu3-1', "/menu3/menu3-2/menu3-2-2", "/menu4"]
         error404 = asyncRoutes.splice(asyncRoutes.length - 1, 1)[0];
         roles.forEach(role => {
             signRouter(asyncRoutes, role)
