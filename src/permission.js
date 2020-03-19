@@ -3,20 +3,21 @@ import { routerList } from "@/api/request/applet.js"
 
 //获取有权限的路由
 var getRouters = async function () {
-    var error404;
-    await routerList().then(function (val) {
-        let roles = val.data.data;
-        window.console.log(val.data.data)
-        roles = ["/menu2", "/menu3/menu3-2", '/menu3/menu3-1', "/menu3/menu3-2/menu3-2-2", "/menu4"]
-        error404 = asyncRoutes.splice(asyncRoutes.length - 1, 1)[0];
-        roles.forEach(role => {
-            signRouter(asyncRoutes, role)
-        });
-        filtration(asyncRoutes)
-        cleanRouter(asyncRoutes)
-    })
-    // 必须最后注册404页面
-    asyncRoutes.push(error404)
+    //在本地环境可以查看所有页面
+    if (process.env.NODE_ENV === 'production') {
+        await routerList({ id: 1234 }, function (val) {
+            var error404;
+            let roles = val.data.data;
+            error404 = asyncRoutes.splice(asyncRoutes.length - 1, 1)[0];
+            roles.forEach(role => {
+                signRouter(asyncRoutes, role)
+            });
+            filtration(asyncRoutes)
+            cleanRouter(asyncRoutes)
+            // 必须最后注册404页面
+            asyncRoutes.push(error404)
+        })
+    }
     return asyncRoutes
 }
 
