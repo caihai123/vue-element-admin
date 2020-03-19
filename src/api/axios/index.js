@@ -10,18 +10,19 @@ function errorNotify(msg) {
         message: msg
     });
 }
+var instance = axios.create();
+instance.defaults.baseURL = process.env.NODE_ENV === 'production' ? 'https://tc.lookdoor.cn:6443/' : '/api';
+instance.defaults.timeout = 60000;
+instance.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 
-axios.defaults.baseURL = process.env.NODE_ENV === 'production' ? 'https://tc.lookdoor.cn:6443/' : '/api';
-axios.defaults.timeout = 60000;
-axios.defaults.headers['X-Requested-With'] = 'XMLHttpRequest';
-
-axios.interceptors.response.use(function (response) {
-    // 对响应数据做点什么
-    if (response.data.code && response.data.code != 200) {
-        //回到登录页
-        router.push({ path: '/login' });
+instance.interceptors.response.use(function (response) {
+    if (response.data.code !== 200) {
+        errorNotify(response.data.message);
+        if (response.data.code === 2) {
+            router.push('/login')
+        }
     }
-    return response;
+    return response
 }, function (error) {
     // 对响应错误做点什么
     if (error && error.response) {
@@ -68,4 +69,4 @@ axios.interceptors.response.use(function (response) {
     return Promise.reject(error);
 });
 
-export default axios
+export default instance

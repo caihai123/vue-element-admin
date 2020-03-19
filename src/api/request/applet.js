@@ -1,9 +1,8 @@
 import axios from "./index"
 
-//获取路由列表
-export function routerList(params) {
+function request(url, params = {}) {
     return new Promise((resolve, reject) => {
-        axios.get("/applet/jsons/caihai.json", {
+        axios.get(url, {
             params: params
         }).then(value => {
             if (value.data.code === 200) {
@@ -16,3 +15,16 @@ export function routerList(params) {
         })
     })
 }
+
+//获取居民列表
+export const routerList = (function () {
+    var loading = false;
+    return function (params, resolve = () => { }, reject = () => { }) {
+        if (!loading) {
+            loading = true;
+            request('/applet/jsons/caihai.json', params)
+                .then(val => { loading = false; resolve(val) })
+                .catch(error => { loading = false; reject(error) });
+        }
+    }
+}())
