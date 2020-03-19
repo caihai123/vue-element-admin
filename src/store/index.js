@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
+import { getDictData } from "@/api/axios/user.js"
 
 Vue.use(Vuex)
 
@@ -85,9 +86,43 @@ const layout = {
     }
 }
 
+//枚举数据
+const dict = {
+    state: {
+        EnumEthnic: [],//民族
+        EnumGender: [],//性别
+        EnumNationality: [],//国家地区
+    },
+    mutations: {
+        initEnumEthnic(state, EnumEthnic) {
+            state.EnumEthnic = EnumEthnic
+        },
+        initEnumGender(state, EnumGender) {
+            state.EnumGender = EnumGender
+        },
+        initEnumNationality(state, EnumNationality) {
+            state.EnumNationality = EnumNationality
+        }
+    },
+    actions: {
+        //初始化枚举
+        init({ commit }) {
+            getDictData({ name: 'EnumEthnic', dataSource: 'DICT' }, value => {
+                commit('initEnumEthnic', value.data.data)
+            })
+            getDictData({ name: 'EnumGender', dataSource: 'DICT' }, value => {
+                commit('initEnumGender', value.data.data)
+            })
+            getDictData({ name: 'EnumNationality', dataSource: 'DICT' }, value => {
+                commit('initEnumNationality', value.data.data)
+            })
+        }
+    }
+}
 const store = new Vuex.Store({
     modules: {
-        layout
+        layout,
+        dict
     }
 })
 

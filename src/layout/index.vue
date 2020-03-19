@@ -43,6 +43,10 @@ export default {
     include() {
       return this.$store.state.layout.include;
     }
+  },
+  created() {
+    //初始化枚举
+    this.$store.dispatch("init");
   }
 };
 </script>
