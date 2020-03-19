@@ -1,5 +1,5 @@
 /* 处理请求的参数 */
-function buildParams(parameters) {
+export function buildParams(parameters) {
     var urlSearchParams = new URLSearchParams();
     for (var key in parameters) {
         if (undefined === parameters[key] || null === parameters[key]) {
@@ -13,5 +13,3 @@ function buildParams(parameters) {
     }
     return urlSearchParams;
 }
-
-export { buildParams }

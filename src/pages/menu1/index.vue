@@ -1,45 +1,65 @@
 <template>
   <div>
+    <el-select v-model="EnumEthnic" placeholder="请选择">
+      <el-option v-for="item in options" :key="item.code" :label="item.name" :value="item.code"></el-option>
+    </el-select>
+    <el-button type="primary" @click="getTableData">搜 索</el-button>
     <el-alert>一级菜单1 表格</el-alert>
     <el-table :data="tableData" v-loading="tableLoading" stripe border style="width: 100%">
-      <el-table-column prop="date" label="日期"></el-table-column>
-      <el-table-column prop="position" label="位置"></el-table-column>
-      <el-table-column prop="doorName" label="设备名称"></el-table-column>
-      <el-table-column prop="unitCode" label="unitCode"></el-table-column>
-      <el-table-column prop="doorId" label="doorId"></el-table-column>
+      <el-table-column prop="residentName" label="姓名"></el-table-column>
+      <el-table-column prop="position" label="国家地区">
+        <template
+          slot-scope="scope"
+        >{{scope.row.residentNationality|filterCodeToName('EnumNationality')}}</template>
+      </el-table-column>
+      <el-table-column prop="doorName" label="性别">
+        <template slot-scope="scope">{{scope.row.residentGender|filterCodeToName('EnumGender')}}</template>
+      </el-table-column>
+      <el-table-column prop="residentBirthday" label="出生日期"></el-table-column>
+      <el-table-column label="民族">
+        <template slot-scope="scope">{{scope.row.residentNation|filterCodeToName('EnumEthnic')}}</template>
+      </el-table-column>
+      <el-table-column prop="houseAddress" label="居住信息"></el-table-column>
     </el-table>
   </div>
 </template>
 
 <script>
-import { getList } from "@/api/axios/user.js";
-
+import { getResidents } from "@/api/axios/user.js";
+import "@/utils/filters.js";
 export default {
   name: "menu1",
   data() {
     return {
       tableData: [],
-      tableLoading: false
+      tableLoading: false,
+      EnumEthnic: ""
     };
   },
-  mounted() {
-    this.getTableData();
+  computed: {
+    options() {
+      return this.$store.state.dict.EnumEthnic;
+    }
   },
+  mounted() {},
   methods: {
-    getTableData: function() {
-      var self = this;
-      self.tableLoading = true;
-      getList({
-        blockCode: "5201030003",
-        isDay: true,
-        page: 1,
-        pageSize: 15
-      }).then(val => {
-        if (val.data.data) {
-          self.tableData = val.data.data.rows;
+    getTableData() {
+      this.tableLoading = true;
+      getResidents(
+        { page: 1, pageSize: 10 },
+        val => {
+          if (val.data.data) {
+            this.tableData = val.data.data.rows;
+          }
+          this.tableLoading = false;
+        },
+        () => {
+          this.tableLoading = false;
         }
-        self.tableLoading = false;
-      });
+      );
+    },
+    caihai() {
+      window.console.log("打印出蔡海");
     }
   }
 };

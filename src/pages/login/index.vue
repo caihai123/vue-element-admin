@@ -56,19 +56,21 @@ export default {
         if (valid) {
           self.loading = true;
           NProgress.start();
-          login({
-            loginName: self.loginForm.userName,
-            password: md5(self.loginForm.userPassword)
-          })
-            .then(() => {
+          login(
+            {
+              loginName: self.loginForm.userName,
+              password: md5(self.loginForm.userPassword)
+            },
+            () => {
               self.loading = false;
               NProgress.done();
               self.$router.push("/");
-            })
-            .catch(() => {
+            },
+            () => {
               self.loading = false;
               NProgress.done();
-            });
+            }
+          );
         }
       });
     }

@@ -57,8 +57,8 @@ export default {
     },
     routerParams() {
       this.$router.push({
-        name: "menu3_1",
-        params: {
+        path: "/menu3_1",
+        query: {
           userId: 555
         }
       });

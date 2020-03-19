@@ -42,14 +42,12 @@ const constantRoutes = [
                 meta: { title: "首页 按钮", icon: "el-icon-s-home" },
             }
         ]
-    },
-    {
+    }, {
         path: "/login",
         component: login,
         hidden: true,
         meta: { title: "登录页" }
-    },
-    {
+    }, {
         path: '/redirect',
         component: Layout,
         hidden: true,
@@ -59,13 +57,11 @@ const constantRoutes = [
                 component: redirect,
             }
         ]
-    },
-    {
+    }, {
         path: '/404',
         component: error404,
         hidden: true,
-    },
-    {
+    }, {
         path: '/error',
         component: Layout,
         redirect: '/error/404',
@@ -112,7 +108,8 @@ export const asyncRoutes = [
                 component: menu2,
                 name: 'menu2',
                 meta: { title: "一级菜单 输入框", icon: "el-icon-s-data" }
-            }]
+            }
+        ]
     }, {
         path: "/menu3",
         component: Layout,
@@ -124,8 +121,7 @@ export const asyncRoutes = [
                 component: menu3_1,
                 name: 'menu3_1',
                 meta: { title: "二级菜单 表单", icon: "el-icon-s-cooperation" },
-            },
-            {
+            }, {
                 path: "/menu3/menu3-2",
                 component: menu3_2,
                 redirect: '/menu3/menu3-2/menu3-2-1',
@@ -136,11 +132,11 @@ export const asyncRoutes = [
                         name: 'menu3-2-1',
                         component: menu3_2_1,
                         meta: { title: "三级菜单3-2-1", icon: "el-icon-s-claim" },
-                    },
-                    {
+                    }, {
                         path: "/menu3/menu3-2/menu3-2-2",
                         name: 'menu3-2-2',
                         component: menu3_2_2,
+                        hidden: false,
                         meta: { title: "三级菜单3-2-2", icon: "el-icon-s-marketing" },
                     }
                 ]

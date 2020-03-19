@@ -32,6 +32,7 @@
         placeholder="选择时间"
       ></el-time-select>
     </div>
+    <el-alert v-for="i in 100" :key="i" title="成功提示的文案" type="success"></el-alert>
   </div>
 </template>
 
